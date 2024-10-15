@@ -11,5 +11,4 @@ pipenv run python manage.py shell -c "from django.contrib.auth.models import Use
                            User.objects.filter(username='cuca').exists() or \
                            User.objects.create_superuser('cuca',
                            'cuca@example.com', 'senha123')"
-                           
-pipenv run python manage.py runserver 0.0.0.0:3357 --reload
+./run
