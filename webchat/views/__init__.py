@@ -1,0 +1,1 @@
+from webchat.views.IndexView import IndexView
