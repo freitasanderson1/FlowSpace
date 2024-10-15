@@ -17,6 +17,7 @@ LOCAL_APPS = [
     ]
 
 OTHER_APPS = [
+    'uvicorn',
     'rest_framework',
     'corsheaders',
     "channels",

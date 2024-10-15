@@ -24,6 +24,6 @@ case $1 in
 
         cleanBuild
         
-        pipenv run uvicorn webchat.asgi:application --host 0.0.0.0 --port 3357
+        pipenv run uvicorn webchat.asgi:application --reload --host 0.0.0.0 --port 3357
     ;;
 esac
