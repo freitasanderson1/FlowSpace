@@ -25,9 +25,9 @@ class ChatConsumer(AsyncWebsocketConsumer):
     async def receive(self, text_data):
         from webchat.models import ChatMessages
         text_data_json = json.loads(text_data)
-        message = text_data_json['message']
-
-        print(f'Mensagem: {message} - {self.chat_id}')
+        message = text_data_json.get('message')
+        user = text_data_json.get('user')
+        print(f'Mensagem: {message} - {self.chat_id} User: {user}')
         # Send message to room group
         await self.channel_layer.group_send(
             self.room_group_name,
