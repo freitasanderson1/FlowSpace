@@ -14,7 +14,7 @@ case $1 in
         cleanBuild
 
         echo "Coletando arquivos estáticos..."
-        python manage.py collectstatic -c --no-input
+        pipenv run python manage.py collectstatic -c --no-input
 
     ;;
     *)
@@ -24,6 +24,6 @@ case $1 in
 
         cleanBuild
         
-        uvicorn webchat.asgi:application --reload --host 0.0.0.0 --port 3357
+        pipenv run uvicorn webchat.asgi:application --reload --host 0.0.0.0 --port 3357
     ;;
 esac
