@@ -1,16 +1,15 @@
 from django.db import models
 
-from django.contrib.auth.models import User
-from webchat.models import Chat
+from webchat.models import Usuario, Chat
 
 class ChatMessages(models.Model):
   chat = models.ForeignKey(Chat, verbose_name="Chat", on_delete=models.CASCADE)
 
   conteudo = models.TextField(u'Conteúdo da Mensagem', max_length=2800, null=False, blank=False, default=' ')
 
-  quemEnviou = models.ForeignKey(User, verbose_name="Quem enviou", related_name='quemEnviou', on_delete=models.CASCADE)
-  quemRecebeu = models.ManyToManyField(User, verbose_name="Usuários que receberam", related_name='quemRecebeu')
-  quemLeu = models.ManyToManyField(User, verbose_name="Usuários que leram", related_name='quemLeu')
+  quemEnviou = models.ForeignKey(Usuario, verbose_name="Quem enviou", related_name='quemEnviou', on_delete=models.CASCADE)
+  quemRecebeu = models.ManyToManyField(Usuario, verbose_name="Usuários que receberam", related_name='quemRecebeu')
+  quemLeu = models.ManyToManyField(Usuario, verbose_name="Usuários que leram", related_name='quemLeu')
 
   dataEnvio = models.DateTimeField('Data de Envio', auto_now_add=True, null=True)
 

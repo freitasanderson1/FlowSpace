@@ -1,10 +1,15 @@
+from datetime import timedelta
 from pathlib import Path
 import os
 
 BASE_DIR = Path(__file__).resolve().parent.parent
 
 DEFAULT_APPS = [
-    'django.contrib.admin',
+    'materialdash',
+    'materialdash.admin',
+
+    # 'django.contrib.admin',
+    
     'django.contrib.auth',
     'django.contrib.contenttypes',
     'django.contrib.sessions',
@@ -18,9 +23,10 @@ LOCAL_APPS = [
 
 OTHER_APPS = [
     'uvicorn',
-    'rest_framework',
     'corsheaders',
     "channels",
+    'rest_framework',
+    "rest_framework_simplejwt",
     ]
 
 INSTALLED_APPS = DEFAULT_APPS + LOCAL_APPS + OTHER_APPS
@@ -38,9 +44,21 @@ MIDDLEWARE = [
 ROOT_URLCONF = 'webchat.urls'
 
 REST_FRAMEWORK = {
-    'DEFAULT_PERMISSION_CLASSES': [
-        'rest_framework.permissions.DjangoModelPermissionsOrAnonReadOnly',
-    ],
+    'DEFAULT_PERMISSION_CLASSES': (
+        'rest_framework.permissions.IsAuthenticated',
+    ),
+    'DEFAULT_AUTHENTICATION_CLASSES': (
+        'rest_framework_simplejwt.authentication.JWTAuthentication',
+    ),
+}
+
+
+SIMPLE_JWT = {
+    'ACCESS_TOKEN_LIFETIME': timedelta(minutes=60),
+    'SLIDING_TOKEN_REFRESH_LIFETIME': timedelta(days=1),
+    'SLIDING_TOKEN_LIFETIME': timedelta(days=30),
+    'SLIDING_TOKEN_REFRESH_LIFETIME_LATE_USER': timedelta(days=1),
+    'SLIDING_TOKEN_LIFETIME_LATE_USER': timedelta(days=30),
 }
 
 TEMPLATES = [
@@ -67,6 +85,7 @@ CHANNEL_LAYERS = {
         'BACKEND': 'channels.layers.InMemoryChannelLayer',
     },
 }
+AUTH_USER_MODEL = 'webchat.Usuario'
 
 AUTH_PASSWORD_VALIDATORS = [
     {
@@ -83,7 +102,7 @@ AUTH_PASSWORD_VALIDATORS = [
     },
 ]
 
-LOGIN_URL = '/login/'
+# LOGIN_URL = '/login/'
 
 TIME_ZONE = 'America/Araguaina'
 

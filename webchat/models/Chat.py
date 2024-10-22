@@ -1,10 +1,11 @@
 from django.db import models
-from django.contrib.auth.models import User
 import uuid
+
+from webchat.models import Usuario
 
 class Chat(models.Model):
   id = models.UUIDField(primary_key=True, default=uuid.uuid4, editable=False)
-  usuarios = models.ManyToManyField(User, verbose_name="Usuários no Chat")
+  usuarios = models.ManyToManyField(Usuario, verbose_name="Usuários no Chat")
   dataCriacao = models.DateTimeField('Data de Criação', auto_now_add=True, null=True)
 
   class Meta:
