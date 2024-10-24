@@ -1,7 +1,7 @@
 const username = document.querySelector('#username').value
 
 const chatSocket = new WebSocket(
-    'ws://' + window.location.host + `/ws/chat/${username}/`)
+    'ws://' + window.location.host + `/ws/chat?username=${username}`,)
 
 chatSocket.onmessage = function(e) {
     const data = JSON.parse(e.data)
@@ -24,6 +24,7 @@ document.querySelector('#chat-message-submit').onclick = function(e) {
     const message = document.querySelector('#chat-message-input').value;
     
     chatSocket.send(JSON.stringify({
+        'chat': '2c524aca-39ae-4054-8b5a-c1b40a2fd164',
         'message': message
     }))
     messageInputDom.value = ''

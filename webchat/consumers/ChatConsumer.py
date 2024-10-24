@@ -1,9 +1,13 @@
 import json
 from channels.generic.websocket import AsyncWebsocketConsumer
+from urllib.parse import parse_qs
+from asgiref.sync import sync_to_async
 
 class ChatConsumer(AsyncWebsocketConsumer):
     async def connect(self):
-        self.username = self.scope['url_route']['kwargs']['username']
+        self.username = parse_qs(self.scope['query_string'].decode('utf8')).get('username')[-1]
+        print(f"USERNAME: {self.username}")
+
         self.room_group_name = f'chat_{self.username}'
 
         await self.channel_layer.group_add(
@@ -20,35 +24,40 @@ class ChatConsumer(AsyncWebsocketConsumer):
         )
 
     async def receive(self, text_data):
-        from webchat.models import ChatMessages
         text_data_json = json.loads(text_data)
+        from webchat.models import Chat, ChatMessages, Usuario
+        # print(f"Chat: {text_data_json.get('chat')}")
+        chat = await Chat.objects.aget(id=text_data_json.get('chat'))
+        user = await Usuario.objects.aget(username=self.username)
         message = text_data_json.get('message')
-        recipient_username = text_data_json.get('recipient_username')  # Username do usuário de destino
-        
-        print(f'Mensagem: {message} de {self.username} para {recipient_username}')
-        
-        # Envia a mensagem para o grupo do usuário de destino
-        room_group_name = f'chat_{recipient_username}'
 
-        ChatMessages.objects.create(
-            quemEnviou__username=self.username, 
-            quemRecebeu=recipient_username, 
-            conteudo=message)
+        # print(f'Mensagem: {message} de {self.username} para o CHAT ID:{chat.id}')
 
-        await self.channel_layer.group_send(
-            room_group_name,
-            {
-                'type': 'chat_message',
-                'message': message,
-                'sender_username': self.username,  # Inclui o username do remetente
-            }
+        novaMensagem = ChatMessages(
+            chat=chat,
+            quemEnviou=user,
+            conteudo=message
         )
+        await sync_to_async(novaMensagem.save)()  
+
+        
+        for usuario in await sync_to_async(list)(chat.usuarios.all()):  
+            await self.channel_layer.group_send(
+                f'chat_{usuario.username}',
+                {
+                    'type': 'chat_message',
+                    'message': message,
+                    'sender_username': self.username,  
+                }
+            )
+            if usuario != user:
+                await sync_to_async(novaMensagem.quemRecebeu.add)(usuario)
 
     async def chat_message(self, event):
         message = event['message']
-        sender_username = event['sender_username']  # Username do remetente
+        sender_username = event['sender_username']  
 
         await self.send(text_data=json.dumps({
             'message': message,
-            'sender_username': sender_username,  # Inclui o username do remetente na resposta
+            'sender_username': sender_username,  
         }))

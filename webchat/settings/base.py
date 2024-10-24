@@ -15,6 +15,7 @@ DEFAULT_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+    'django.contrib.sites',
 ]
 
 LOCAL_APPS = [
@@ -22,9 +23,9 @@ LOCAL_APPS = [
     ]
 
 OTHER_APPS = [
+    "channels",
     'uvicorn',
     'corsheaders',
-    "channels",
     'rest_framework',
     "rest_framework_simplejwt",
     ]
@@ -54,7 +55,7 @@ REST_FRAMEWORK = {
 
 
 SIMPLE_JWT = {
-    'ACCESS_TOKEN_LIFETIME': timedelta(minutes=60),
+    'ACCESS_TOKEN_LIFETIME': timedelta(minutes=3600),
     'SLIDING_TOKEN_REFRESH_LIFETIME': timedelta(days=1),
     'SLIDING_TOKEN_LIFETIME': timedelta(days=30),
     'SLIDING_TOKEN_REFRESH_LIFETIME_LATE_USER': timedelta(days=1),
@@ -127,3 +128,4 @@ STATICFILES_DIRS = [
 ]
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
+SITE_ID = 1

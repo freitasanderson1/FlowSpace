@@ -5,10 +5,10 @@ from rest_framework_simplejwt.authentication import JWTAuthentication
 
 
 
-class TestView(APIView):
+class GetUserUsernameView(APIView):
     authentication_classes = [JWTAuthentication]
     permission_classes = [IsAuthenticated]
 
     def get(self, request):
-        content = {'message': f'{request.user}'}
+        content = {'username': request.user.username}
         return Response(content)
