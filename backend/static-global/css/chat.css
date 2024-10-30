@@ -6,6 +6,8 @@
     max-width: 50%;
     margin-left: 0;
     margin-right: auto;
+    border-radius: 4px;
+    font-weight: 600;
 }
 
 .selfMessage{
@@ -16,4 +18,6 @@
     max-width: 50%;
     margin-right: 0;
     margin-left: auto;
+    border-radius: 4px;
+    font-weight: 600;
 }

@@ -16,7 +16,7 @@ class ChatMessages(models.Model):
   class Meta:
     verbose_name = 'Message'
     verbose_name_plural = 'Messages'
-    ordering = ['dataEnvio','chat']
+    ordering = ['chat','dataEnvio']
 
   def __str__(self):
     return f'Mensagem no Chat {self.chat} enviada por {self.quemEnviou}'
