@@ -5,7 +5,14 @@ const chatSocket = new WebSocket(
 
 chatSocket.onmessage = function(e) {
     const data = JSON.parse(e.data)
-    document.querySelector('#chat-log').innerHTML += ('<br>' + data.message)
+    console.log(`Dados Mensagem: ${Object.getOwnPropertyNames(data)}`)
+    console.log(`Quem: ${data.sender_username}, Quando: ${data.time} e o que: ${data.message}`)
+    
+    document.querySelector('#chat-log').innerHTML += (`
+        <li class="${data.sender_username == username ? 'selfMessage':'otherMessage'}">
+            ${data.message}
+        </li>
+    `)
 }
 
 chatSocket.onclose = function(e) {
@@ -24,7 +31,7 @@ document.querySelector('#chat-message-submit').onclick = function(e) {
     const message = document.querySelector('#chat-message-input').value;
     
     chatSocket.send(JSON.stringify({
-        'chat': '2c524aca-39ae-4054-8b5a-c1b40a2fd164',
+        'chat': '45eb0679-6625-40f7-8a6e-4208f9691280',
         'message': message
     }))
     messageInputDom.value = ''

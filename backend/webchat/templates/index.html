@@ -6,14 +6,19 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Chat</title>
+    <link rel="stylesheet" href="{% static "css/chat.css" %}">
 </head>
 <body>
     <h2>Chat Room</h2>
-    <div id="chat-log"></div>
+    <div>
+        <ul id="chat-log" style="list-style-type: none; padding-left:0;">
+
+        </ul>
+    </div>
     <input type="hidden" id="username" name="username" value="{{request.user.username}}">
     <input id="chat-message-input" type="text" size="100">
     <button id="chat-message-submit">Send</button>
 
-    <script src="{% static "JS/websocketChat.js" %}"></script>
+    <script src="{% static "js/websocketChat.js" %}" defer></script>
 </body>
 </html>

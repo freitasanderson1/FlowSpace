@@ -1,0 +1,114 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="pt-BR">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Login</title>
+    <link
+      href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.15/dist/tailwind.min.css"
+      rel="stylesheet"
+    />
+    <link rel="stylesheet" href="{% static 'css/loginPage.css' %}" />
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/particlesjs/2.2.3/particles.min.js" defer></script>
+    <script src="{% static "js/particles.js" %}"></script>
+  </head>
+
+  <body>
+    <canvas class="background"></canvas>
+    <section class="h-screen">
+      <div class="container h-full">
+        <div
+          class="g-6 flex h-full flex-wrap items-center justify-center lg:justify-between"
+        >
+          <div class="mb-12 md:mb-0 md:w-8/12 lg:w-4/12 text-center">
+            <h1
+              class="mb-2 text-4xl font-extrabold leading-none tracking-tight md:text-5xl lg:text-6xl dark:text-white"
+              style="color: #029b75"
+            >
+              FlowSpace
+            </h1>
+            <div class="flex items-center justify-center">
+              <svg
+                xmlns="http://www.w3.org/2000/svg"
+                class="w-4 h-4 mr-2 text-white"
+                fill="none"
+                viewBox="0 0 24 24"
+                stroke="currentColor"
+              >
+                <path
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                  stroke-width="2"
+                  d="M5 12h14M12 5l7 7-7 7"
+                />
+              </svg>
+              <p class="text-3xl font-semibold text-white">Login</p>
+            </div>
+          </div>
+
+          <div class="min-h-screen flex items-center justify-center md:w-6/12">
+            <div id="divLogin" class="flex flex-col items-center">
+              <form
+                method="post"
+                action="{% url 'login' %}"
+                class="flex flex-col bg-white rounded shadow-lg p-12"
+              >
+                {% csrf_token %}
+
+                <label class="font-semibold text-xs" for="nomeDeUsuario"
+                  >Nome de Usuário:</label
+                >
+                <input
+                  class="flex items-center h-12 px-4 w-64 bg-gray-200 mt-2 rounded focus:outline-none focus:ring-2"
+                  name="username"
+                  id="nomeDeUsuario"
+                  type="text"
+                  required
+                />
+                <label class="font-semibold text-xs mt-3" for="password"
+                  >Senha:</label
+                >
+                <input
+                  class="flex items-center h-12 px-4 w-64 bg-gray-200 mt-2 rounded focus:outline-none focus:ring-2"
+                  type="password"
+                  name="password"
+                  id="password"
+                  required
+                />
+                <button
+                  type="submit"
+                  class="flex items-center justify-center h-12 px-6 w-64 bg-green-600 mt-8 rounded font-semibold text-sm text-green-100"
+                  style="background-color: #029b75"
+                >
+                  Login
+                </button>
+                <div class="flex mt-6 justify-center text-xs">
+                  <a href="" class="text-green-400 hover:text-green-500"
+                    >Cadastro</a
+                  >
+                </div>
+              </form>
+              {% if messages %}
+              <div
+                class="p-2 bg-red-800 items-center text-red-100 leading-none lg:rounded-full flex lg:inline-flex mt-4"
+                role="alert"
+              >
+                <span
+                  class="flex rounded-full bg-red-500 uppercase px-2 py-1 text-xs font-bold mr-3"
+                  >Erro!</span
+                >
+                {% for message in messages %}
+                <span class="font-semibold mr-2 text-left flex-auto"
+                  >{{ message }}</span
+                >
+                {% endfor %}
+              </div>
+              {% endif %}
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+  </body>
+</html>

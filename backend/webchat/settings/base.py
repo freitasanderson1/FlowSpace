@@ -1,8 +1,16 @@
 from datetime import timedelta
 from pathlib import Path
 import os
+import django
+
+def _django_version():
+    return int(django.get_version()[0])
 
 BASE_DIR = Path(__file__).resolve().parent.parent
+
+MATERIALDASH_ADMIN_SITE = {
+    'DJANGO_VERSION': _django_version(),
+}
 
 DEFAULT_APPS = [
     'materialdash',
@@ -15,7 +23,6 @@ DEFAULT_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
-    'django.contrib.sites',
 ]
 
 LOCAL_APPS = [
@@ -104,6 +111,8 @@ AUTH_PASSWORD_VALIDATORS = [
 ]
 
 # LOGIN_URL = '/login/'
+LOGIN_URL = '/login/'
+LOGIN_REDIRECT_URL = '/'
 
 TIME_ZONE = 'America/Araguaina'
 

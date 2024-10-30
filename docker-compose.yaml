@@ -1,8 +1,7 @@
 services:
   django:
     build: 
-      context: .
-      dockerfile: Dockerfile
+      context: ./backend
     ports:
       - 3357:3357
     restart: always

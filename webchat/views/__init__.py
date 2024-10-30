@@ -1,2 +1,0 @@
-from webchat.views.IndexView import IndexView
-from webchat.views.GetUserUsernameView import GetUserUsernameView

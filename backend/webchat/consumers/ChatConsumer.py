@@ -6,7 +6,7 @@ from asgiref.sync import sync_to_async
 class ChatConsumer(AsyncWebsocketConsumer):
     async def connect(self):
         self.username = parse_qs(self.scope['query_string'].decode('utf8')).get('username')[-1]
-        print(f"USERNAME: {self.username}")
+        # print(f"USERNAME: {self.username}")
 
         self.room_group_name = f'chat_{self.username}'
 
@@ -47,6 +47,7 @@ class ChatConsumer(AsyncWebsocketConsumer):
                 {
                     'type': 'chat_message',
                     'message': message,
+                    'time': novaMensagem.dataEnvio.strftime("%Y-%m-%d %H:%M:%S") ,
                     'sender_username': self.username,  
                 }
             )
@@ -56,8 +57,10 @@ class ChatConsumer(AsyncWebsocketConsumer):
     async def chat_message(self, event):
         message = event['message']
         sender_username = event['sender_username']  
-
+        time = event['time']  
+        # print(f'Teste Sender: {event}')
         await self.send(text_data=json.dumps({
             'message': message,
-            'sender_username': sender_username,  
+            'sender_username': sender_username,
+            'time': time,  
         }))
