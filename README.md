@@ -19,6 +19,9 @@
 
 
 ## Designs:
+### Figma
+[Protótipo no Figma](https://www.figma.com/design/TpCSyuS5qafnwFUzOFlbaB/FlowSpace?node-id=0-1&t=FgMNKU8IeeMphfKR-1)
+
 ### Web:
 [Social Media Concept by Nixtio](https://dribbble.com/shots/22588296-Social-Media-Concept)
 
