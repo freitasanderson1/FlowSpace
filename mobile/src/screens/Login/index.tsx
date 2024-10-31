@@ -3,6 +3,7 @@ import { useNavigation } from '@react-navigation/native';
 import { ImageBackground, Text, TextInput, TouchableOpacity, View } from "react-native";
 import { useFonts, Mulish_800ExtraBold, Mulish_400Regular, Mulish_700Bold } from "@expo-google-fonts/mulish";
 import { MaterialCommunityIcons } from '@expo/vector-icons';
+import { globalStyles } from '../globalStyles';
 import { styles } from "./styles";
 
 export default function Login() {
@@ -15,32 +16,43 @@ export default function Login() {
     });
 
     const [showPassword, setShowPassword] = useState(false);
+    const [savePassword, setSavePassword] = useState(false);
 
     const toggleShowPassword = () => {
         setShowPassword(!showPassword);
     };
 
+    const toggleSavePassword = () => {
+        setSavePassword(!savePassword);
+    };
+
     if (!fontsLoaded) {
-        return <Text>Carregando fontes...</Text>;
+        return (
+            <ImageBackground source={require('../../../assets/background.jpg')} style={globalStyles.background}>
+                <View style={styles.container}>
+                    <Text style={{color:"#FFFFFF",fontSize:16,}}>Carregando fontes...</Text>
+                </View>
+            </ImageBackground>
+        )
     }
 
     return (
-        <ImageBackground source={require('../../../assets/background.jpg')} style={styles.background}>
+        <ImageBackground source={require('../../../assets/background.jpg')} style={globalStyles.background}>
             <View style={styles.container}>
-                <Text style={[styles.textWhite, styles.textTitle]}>FlowSpace</Text>
+                <Text style={[globalStyles.textWhite, globalStyles.textTitle]}>FlowSpace</Text>
                 
                 <View style={styles.containerLogin}>
                     <View>
-                        <Text style={styles.textInputLabel}>Nome de Usuário</Text>
-                        <TextInput style={styles.textInput} placeholder="Insira seu nome de usuario" />
+                        <Text style={globalStyles.textInputLabel}>Nome de Usuário</Text>
+                        <TextInput style={globalStyles.textInput} placeholder="Insira seu nome de usuario" />
                     </View>
 
                     <View>
-                        <Text style={styles.textInputLabel}>Senha</Text>
-                        <View style={styles.passwordContainer}>
+                        <Text style={globalStyles.textInputLabel}>Senha</Text>
+                        <View style={globalStyles.passwordContainer}>
                             <TextInput
                                 secureTextEntry={!showPassword}
-                                style={[styles.textInputPassword]}
+                                style={[globalStyles.textInputPassword]}
                                 placeholder="Insira sua senha"
                             />
                             <MaterialCommunityIcons
@@ -48,17 +60,28 @@ export default function Login() {
                                 size={24}
                                 color="#aaa"
                                 onPress={toggleShowPassword}
-                                style={styles.icon}
+                                style={globalStyles.icon}
                             />
                         </View>
                     </View>
 
-                    <TouchableOpacity style={[styles.defaultButton, styles.buttonGreen]}>
-                        <Text style={styles.textWhite}>Entrar</Text>
+                    <View style={[globalStyles.textWithIcon]}>
+                        <Text>Salvar minha senha</Text>
+                        <MaterialCommunityIcons
+                            name={savePassword ? 'checkbox-marked-circle-outline' : 'checkbox-blank-circle-outline'}
+                            size={24}
+                            color="#aaa"
+                            onPress={toggleSavePassword}
+                            style={[globalStyles.icon]}
+                        />
+                    </View>
+
+                    <TouchableOpacity style={[globalStyles.defaultButton, globalStyles.buttonGreen]}>
+                        <Text style={globalStyles.textWhite}>Entrar</Text>
                     </TouchableOpacity>
 
-                    <TouchableOpacity style={styles.defaultButton} onPress={() => navigation.navigate('Cadastro')}>
-                        <Text style={styles.textGreen}>Cadastro</Text>
+                    <TouchableOpacity style={globalStyles.defaultButton} onPress={() => navigation.navigate('Cadastro')}>
+                        <Text style={globalStyles.textGreen}>Cadastro</Text>
                     </TouchableOpacity>
                 </View>
             </View>

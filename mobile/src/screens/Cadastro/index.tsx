@@ -1,9 +1,10 @@
 import React, { useState } from 'react';
 import { ImageBackground, Text, TextInput, TouchableOpacity, View } from "react-native";
 import { useNavigation } from '@react-navigation/native'; // Importação do hook de navegação
-import { styles } from "./styles";
 import { useFonts, Mulish_800ExtraBold, Mulish_400Regular, Mulish_700Bold } from "@expo-google-fonts/mulish";
 import { MaterialCommunityIcons } from '@expo/vector-icons';
+import { globalStyles } from '../globalStyles';
+import { styles } from "./styles";
 
 export default function Cadastro() {
     const navigation = useNavigation();
@@ -21,31 +22,37 @@ export default function Cadastro() {
     };
 
     if (!fontsLoaded) {
-        return <Text>Carregando fontes...</Text>;
+        return (
+            <ImageBackground source={require('../../../assets/background.jpg')} style={globalStyles.background}>
+                <View style={styles.container}>
+                    <Text style={{color:"#FFFFFF",fontSize:16,}}>Carregando fontes...</Text>
+                </View>
+            </ImageBackground>
+        )
     }
 
     return (
-        <ImageBackground source={require('../../../assets/background.jpg')} style={styles.background}>
+        <ImageBackground source={require('../../../assets/background.jpg')} style={globalStyles.background}>
             <View style={styles.container}>
-                <Text style={[styles.textWhite, styles.textTitle]}>FlowSpace</Text>
+                <Text style={[globalStyles.textWhite, globalStyles.textTitle]}>FlowSpace</Text>
                 
-                <View style={styles.containerLogin}>
+                <View style={styles.containerCadastro}>
                     <View>
-                        <Text style={styles.textInputLabel}>Nome</Text>
-                        <TextInput style={styles.textInput} placeholder="Insira seu nome" />
+                        <Text style={globalStyles.textInputLabel}>Nome</Text>
+                        <TextInput style={globalStyles.textInput} placeholder="Insira seu nome" />
                     </View>
 
                     <View>
-                        <Text style={styles.textInputLabel}>Email</Text>
-                        <TextInput style={styles.textInput} placeholder="Insira seu email" keyboardType='email'/>
+                        <Text style={globalStyles.textInputLabel}>Email</Text>
+                        <TextInput style={globalStyles.textInput} placeholder="Insira seu email" keyboardType='email'/>
                     </View>
 
                     <View>
-                        <Text style={styles.textInputLabel}>Senha</Text>
-                        <View style={styles.passwordContainer}>
+                        <Text style={globalStyles.textInputLabel}>Senha</Text>
+                        <View style={globalStyles.passwordContainer}>
                             <TextInput
                                 secureTextEntry={!showPassword}
-                                style={[styles.textInputPassword]}
+                                style={[globalStyles.textInputPassword]}
                                 placeholder="Insira sua senha"
                             />
                             <MaterialCommunityIcons
@@ -53,17 +60,17 @@ export default function Cadastro() {
                                 size={24}
                                 color="#aaa"
                                 onPress={toggleShowPassword}
-                                style={styles.icon}
+                                style={globalStyles.icon}
                             />
                         </View>
                     </View>
 
-                    <TouchableOpacity style={[styles.defaultButton, styles.buttonGreen]}>
-                        <Text style={styles.textWhite}>Cadastrar-se</Text>
+                    <TouchableOpacity style={[globalStyles.defaultButton, globalStyles.buttonGreen]}>
+                        <Text style={globalStyles.textWhite}>Cadastrar-se</Text>
                     </TouchableOpacity>
 
-                    <TouchableOpacity style={styles.defaultButton} onPress={() => navigation.navigate('Login')}>
-                        <Text style={styles.textGreen}>Já tem cadastro? Faça Login</Text>
+                    <TouchableOpacity style={globalStyles.defaultButton} onPress={() => navigation.navigate('Login')}>
+                        <Text style={globalStyles.textGreen}>Já tem cadastro? Faça Login</Text>
                     </TouchableOpacity>
                 </View>
             </View>
