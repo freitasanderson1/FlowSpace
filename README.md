@@ -16,7 +16,8 @@
 - Tailwind
 
 #### Mobile:
-
+- React Native
+- Expo
 
 ## Designs:
 ### Figma
