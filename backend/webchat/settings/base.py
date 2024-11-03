@@ -1,23 +1,12 @@
 from datetime import timedelta
 from pathlib import Path
 import os
-import django
-
-def _django_version():
-    return int(django.get_version()[0])
 
 BASE_DIR = Path(__file__).resolve().parent.parent
-
-MATERIALDASH_ADMIN_SITE = {
-    'DJANGO_VERSION': _django_version(),
-}
 
 DEFAULT_APPS = [
     'materialdash',
     'materialdash.admin',
-
-    # 'django.contrib.admin',
-    
     'django.contrib.auth',
     'django.contrib.contenttypes',
     'django.contrib.sessions',
@@ -27,7 +16,7 @@ DEFAULT_APPS = [
 
 LOCAL_APPS = [
     'webchat'
-    ]
+]
 
 OTHER_APPS = [
     "channels",
