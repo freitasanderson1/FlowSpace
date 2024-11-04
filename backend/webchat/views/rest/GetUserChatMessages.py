@@ -11,13 +11,17 @@ class GetUserChatMessages(viewsets.ModelViewSet, APIView):
     permission_classes = [IsAuthenticated]
 
     def list(self, request):
-        responseData = ChatSerializer(Chat.objects.filter(usuarios=request.user), many=True).data[0]
-        return Response(responseData)
+        data = Chat.objects.filter(usuarios=request.user)
+        messages = ChatSerializer(data, many=True).data[0] if data else None
+
+        return Response(messages)
     
     def retrieve(self, request, *args, **kwargs):
         id = kwargs.get('pk')
-        data = ChatSerializer(Chat.objects.filter(id=id), many=True).data[0]
-        return Response(data)
+        data = Chat.objects.filter(id=id)
+        messages = ChatSerializer(data, many=True).data[0] if data else None
+
+        return Response(messages)
     
     def create(self, request, *args, **kwargs):
         responseData = {'mensagem':'Não permitido!'}
