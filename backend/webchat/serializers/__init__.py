@@ -1,2 +1,3 @@
 from webchat.serializers.ChatMessagesSerializer import ChatMessagesSerializer
 from webchat.serializers.ChatSerializer import ChatSerializer
+from webchat.serializers.UserSerializer import UserSerializer
