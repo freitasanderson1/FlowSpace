@@ -1,9 +1,8 @@
-from django.contrib.auth.models import User
-from rest_framework import permissions, viewsets
+from rest_framework import viewsets
 
 from webchat.serializers import UserSerializer
-
+from webchat.models import Usuario
 class UsuariosRestView(viewsets.ModelViewSet):
 
-    queryset = User.objects.all().order_by('-date_joined')
+    queryset = Usuario.objects.all().order_by('-date_joined')
     serializer_class = UserSerializer
