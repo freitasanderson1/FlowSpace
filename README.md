@@ -12,8 +12,7 @@
 - Websockets 13.1
 
 #### Frontend:
-- Next.js
-- Tailwind
+- ????
 
 #### Mobile:
 - React Native
